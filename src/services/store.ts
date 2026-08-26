@@ -5,6 +5,8 @@ import burgerConstructorReducer from './slices/burgerConstructorSlice';
 import orderReducer from './slices/orderSlice';
 import feedReducer from './slices/feedSlice';
 import userOrdersReducer from './slices/userOrdersSlice';
+import orderDetailsReducer from './slices/orderDetailsSlice';
+import userReducer from './slices/userSlice';
 import {
   TypedUseSelectorHook,
   useDispatch as dispatchHook,
@@ -20,16 +22,20 @@ export type AppDispatch = typeof store.dispatch;
 
 const store = configureStore({
   reducer: {
-    // Подключили список доступных ингредиентов.
+    // Подключили список доступных ингредиентов
     ingredients: ingredientsReducer,
-    // Подключили отдельную область состояния для собранного бургера.
+    // Подключили отдельную область состояния для собранного бургера
     burgerConstructor: burgerConstructorReducer,
-    // Подключили состояние запроса и данных созданного заказа.
+    // Подключили состояние запроса и данных созданного заказа
     order: orderReducer,
-    // Подключили данные публичной ленты заказов.
+    // Подключили данные публичной ленты заказов
     feed: feedReducer,
-    // Подключили историю заказов авторизованного пользователя.
-    userOrders: userOrdersReducer
+    // Подключили историю заказов авторизованного пользователя
+    userOrders: userOrdersReducer,
+    // Подключили данные конкретного заказа
+    orderDetails: orderDetailsReducer,
+    // Подключили данные пользователя и состояние авторизации
+    user: userReducer
   },
   devTools: process.env.NODE_ENV !== 'production'
 });

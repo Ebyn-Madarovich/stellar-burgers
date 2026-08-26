@@ -1,7 +1,10 @@
+// #region Imports
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getFeedsApi } from '@api';
 import { TOrder } from '@utils-types';
+// #endregion
 
+// #region Types
 type TFeedState = {
   orders: TOrder[];
   total: number;
@@ -9,7 +12,9 @@ type TFeedState = {
   isLoading: boolean;
   error: string | null;
 };
+// #endregion
 
+// Запрашиваем публичную ленту заказов
 export const getFeed = createAsyncThunk('feed/getFeed', () => {
   const result = getFeedsApi();
   return result;

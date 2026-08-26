@@ -12,7 +12,7 @@ type TUserOrdersState = {
 };
 // #endregion
 
-// Запрашиваем историю заказов авторизованного пользователя.
+// Запрашиваем историю заказов авторизованного пользователя
 export const getUserOrders = createAsyncThunk(
   'userOrders/getUserOrders',
   () => {

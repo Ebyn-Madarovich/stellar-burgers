@@ -16,7 +16,7 @@ type TMoveIngredientPayload = {
 };
 // #endregion
 
-// Начальное состояние пустого конструктора.
+// Начальное состояние пустого конструктора
 const initialState: TBurgerConstructorState = {
   bun: null,
   ingredients: []
@@ -26,7 +26,7 @@ const burgerConstructorSlice = createSlice({
   name: 'burgerConstructor',
   initialState,
   reducers: {
-    // Булка заменяет предыдущую, а начинкам создаётся уникальный id.
+    // Булка заменяет предыдущую, а начинкам создаётся уникальный id
     addIngredient: {
       reducer: (state, action: PayloadAction<TConstructorIngredient>) => {
         if (action.payload.type === 'bun') {
@@ -43,14 +43,14 @@ const burgerConstructorSlice = createSlice({
       })
     },
 
-    // Удаляем конкретный экземпляр начинки по его уникальному id.
+    // Удаляем конкретный экземпляр начинки по его уникальному id
     removeIngredient: (state, action: PayloadAction<string>) => {
       state.ingredients = state.ingredients.filter(
         (ingredient) => ingredient.id !== action.payload
       );
     },
 
-    // Перемещаем начинку с одной позиции конструктора на другую.
+    // Перемещаем начинку с одной позиции конструктора на другую
     moveIngredient: (state, action: PayloadAction<TMoveIngredientPayload>) => {
       const [movedIngredient] = state.ingredients.splice(
         action.payload.fromIndex,
@@ -62,7 +62,7 @@ const burgerConstructorSlice = createSlice({
       }
     },
 
-    // Очищаем конструктор после успешного оформления заказа.
+    // Очищаем конструктор после успешного оформления заказа
     clearConstructor: () => initialState
   },
   selectors: {

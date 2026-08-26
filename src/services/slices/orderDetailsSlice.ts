@@ -1,13 +1,18 @@
+// #region Imports
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getOrderByNumberApi } from '@api';
 import { TOrder } from '@utils-types';
+// #endregion
 
+// #region Types
 type TOrderDetailsState = {
   order: TOrder | null;
   isLoading: boolean;
   error: string | null;
 };
+// #endregion
 
+// Запрашиваем данные конкретного заказа по его номеру
 export const getOrderByNumber = createAsyncThunk(
   'orderDetails/getOrderByNumber',
   (number: number) => {

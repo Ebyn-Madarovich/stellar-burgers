@@ -1,13 +1,17 @@
-import { orderBurgerApi, TNewOrder } from '@api';
-
+// #region Imports
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { orderBurgerApi, TNewOrder } from '@api';
+// #endregion
 
+// #region Types
 type TOrderState = {
   orderModalData: TNewOrder | null;
   isLoading: boolean;
   error: string | null;
 };
+// #endregion
 
+// Отправляем выбранные ингредиенты на сервер для создания заказа
 export const createOrder = createAsyncThunk(
   'order/createOrder',
   (ingredientIds: string[]) => {
