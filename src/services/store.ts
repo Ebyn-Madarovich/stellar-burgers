@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import ingredientsReducer from './slices/ingredientsSlice';
 import burgerConstructorReducer from './slices/burgerConstructorSlice';
 import orderReducer from './slices/orderSlice';
+import feedReducer from './slices/feedSlice';
 import {
   TypedUseSelectorHook,
   useDispatch as dispatchHook,
@@ -18,11 +19,14 @@ export type AppDispatch = typeof store.dispatch;
 
 const store = configureStore({
   reducer: {
+    // Подключили список доступных ингредиентов.
     ingredients: ingredientsReducer,
     // Подключили отдельную область состояния для собранного бургера.
     burgerConstructor: burgerConstructorReducer,
     // Подключили состояние запроса и данных созданного заказа.
-    order: orderReducer
+    order: orderReducer,
+    // Подключили данные публичной ленты заказов.
+    feed: feedReducer
   },
   devTools: process.env.NODE_ENV !== 'production'
 });

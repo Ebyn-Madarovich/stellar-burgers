@@ -1,6 +1,7 @@
 // #region Imports
 import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
 import { TConstructorIngredient, TIngredient } from '@utils-types';
+import { createOrder } from './orderSlice';
 // #endregion
 
 // #region Types
@@ -68,6 +69,12 @@ const burgerConstructorSlice = createSlice({
     selectConstructor: (state) => state,
     selectConstructorBun: (state) => state.bun,
     selectConstructorIngredients: (state) => state.ingredients
+  },
+  extraReducers: (builder) => {
+    builder.addCase(createOrder.fulfilled, (state) => {
+      state.bun = null;
+      state.ingredients = [];
+    });
   }
 });
 
