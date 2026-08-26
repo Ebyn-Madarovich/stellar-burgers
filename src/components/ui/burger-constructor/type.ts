@@ -1,5 +1,8 @@
+// #region Imports
 import { TOrder } from '@utils-types';
+// #endregion
 
+// #region Types
 export type BurgerConstructorUIProps = {
   constructorItems: any;
   orderRequest: boolean;
@@ -8,3 +11,4 @@ export type BurgerConstructorUIProps = {
   onOrderClick: () => void;
   closeOrderModal: () => void;
 };
+// #endregion

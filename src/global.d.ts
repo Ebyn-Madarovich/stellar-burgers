@@ -1,4 +1,6 @@
+// #region Imports
 import 'react';
+// #endregion
 
 declare module 'react' {
   interface HTMLAttributes<T> {

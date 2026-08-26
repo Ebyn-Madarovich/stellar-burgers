@@ -1,5 +1,7 @@
+// #region Imports
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
+// #endregion
 
 export const Profile: FC = () => {
   /** TODO: взять переменную из стора */

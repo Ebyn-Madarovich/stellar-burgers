@@ -1,6 +1,8 @@
+// #region Imports
 import React, { FC } from 'react';
 import { OrderStatusProps } from './type';
 import { OrderStatusUI } from '@ui';
+// #endregion
 
 const statusText: { [key: string]: string } = {
   pending: 'Готовится',

@@ -1,5 +1,7 @@
+// #region Imports
 import { FC, SyntheticEvent, useState } from 'react';
 import { LoginUI } from '@ui-pages';
+// #endregion
 
 export const Login: FC = () => {
   const [email, setEmail] = useState('');

@@ -1,3 +1,4 @@
+// #region Types
 export type TIngredient = {
   _id: string;
   name: string;
@@ -38,3 +39,4 @@ export type TUser = {
 };
 
 export type TTabMode = 'bun' | 'sauce' | 'main';
+// #endregion

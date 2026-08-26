@@ -1,6 +1,8 @@
+// #region Imports
 import { FC } from 'react';
 import { Preloader } from '../ui/preloader';
 import { IngredientDetailsUI } from '../ui/ingredient-details';
+// #endregion
 
 export const IngredientDetails: FC = () => {
   /** TODO: взять переменную из стора */

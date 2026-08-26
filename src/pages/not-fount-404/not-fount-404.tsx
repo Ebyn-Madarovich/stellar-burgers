@@ -1,4 +1,6 @@
+// #region Imports
 import { FC } from 'react';
+// #endregion
 
 export const NotFound404: FC = () => (
   <h3 className={`pb-6 text text_type_main-large`}>

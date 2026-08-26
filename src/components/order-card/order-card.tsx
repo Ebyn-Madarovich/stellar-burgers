@@ -1,9 +1,10 @@
+// #region Imports
 import { FC, memo, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-
 import { OrderCardProps } from './type';
 import { TIngredient } from '@utils-types';
 import { OrderCardUI } from '../ui/order-card';
+// #endregion
 
 const maxIngredients = 6;
 

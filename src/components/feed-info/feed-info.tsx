@@ -1,7 +1,8 @@
+// #region Imports
 import { FC } from 'react';
-
 import { TOrder } from '@utils-types';
 import { FeedInfoUI } from '../ui/feed-info';
+// #endregion
 
 const getOrders = (orders: TOrder[], status: string): number[] =>
   orders
