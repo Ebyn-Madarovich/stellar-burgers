@@ -1,5 +1,13 @@
 // #region Imports
 import { useEffect } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import {
+  AppHeader,
+  IngredientDetails,
+  Modal,
+  OrderInfo,
+  ProtectedRoute
+} from '@components';
 import {
   ConstructorPage,
   Feed,
@@ -11,24 +19,17 @@ import {
   Register,
   ResetPassword
 } from '@pages';
-import '../../index.css';
-import styles from './app.module.css';
-import {
-  AppHeader,
-  IngredientDetails,
-  OrderInfo,
-  ProtectedRoute,
-  Modal
-} from '@components';
-import { Preloader } from '@ui';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from '../../services/store';
 import {
   getIngredients,
   selectIngredients,
   selectIngredientsError,
-  selectIngredientsLoading
-} from '../../services/slices/ingredientsSlice';
+  selectIngredientsLoading,
+  getUser
+} from '@slices';
+import { Preloader } from '@ui';
+import { useDispatch, useSelector } from '../../services/store';
+import '../../index.css';
+import styles from './app.module.css';
 // #endregion
 
 const App = () => {
@@ -47,6 +48,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getIngredients());
+    dispatch(getUser());
   }, [dispatch]);
 
   return (

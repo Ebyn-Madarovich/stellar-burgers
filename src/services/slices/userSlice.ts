@@ -100,11 +100,11 @@ const userSlice = createSlice({
         state.isAuthChecked = true;
         state.user = action.payload.user;
       })
-      .addCase(getUser.rejected, (state, action) => {
+      .addCase(getUser.rejected, (state) => {
         state.isLoading = false;
         state.isAuthChecked = true;
         state.user = null;
-        state.error = action.error.message ?? 'Ошибка получения пользователя';
+        state.error = null;
       })
 
       // Регистрация пользователя

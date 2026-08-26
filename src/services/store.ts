@@ -1,12 +1,14 @@
 // #region Imports
 import { configureStore } from '@reduxjs/toolkit';
-import ingredientsReducer from './slices/ingredientsSlice';
-import burgerConstructorReducer from './slices/burgerConstructorSlice';
-import orderReducer from './slices/orderSlice';
-import feedReducer from './slices/feedSlice';
-import userOrdersReducer from './slices/userOrdersSlice';
-import orderDetailsReducer from './slices/orderDetailsSlice';
-import userReducer from './slices/userSlice';
+import {
+  ingredientsReducer,
+  burgerConstructorReducer,
+  orderReducer,
+  feedReducer,
+  userOrdersReducer,
+  orderDetailsReducer,
+  userReducer
+} from '@slices';
 import {
   TypedUseSelectorHook,
   useDispatch as dispatchHook,
