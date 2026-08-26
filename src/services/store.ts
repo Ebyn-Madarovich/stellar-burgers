@@ -4,6 +4,7 @@ import ingredientsReducer from './slices/ingredientsSlice';
 import burgerConstructorReducer from './slices/burgerConstructorSlice';
 import orderReducer from './slices/orderSlice';
 import feedReducer from './slices/feedSlice';
+import userOrdersReducer from './slices/userOrdersSlice';
 import {
   TypedUseSelectorHook,
   useDispatch as dispatchHook,
@@ -26,7 +27,9 @@ const store = configureStore({
     // Подключили состояние запроса и данных созданного заказа.
     order: orderReducer,
     // Подключили данные публичной ленты заказов.
-    feed: feedReducer
+    feed: feedReducer,
+    // Подключили историю заказов авторизованного пользователя.
+    userOrders: userOrdersReducer
   },
   devTools: process.env.NODE_ENV !== 'production'
 });
