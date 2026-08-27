@@ -1,6 +1,12 @@
+// #region Imports
 import React from 'react';
 import { OrderDetailsUI } from '@ui';
 import type { Meta, StoryObj } from '@storybook/react';
+// #endregion
+
+// #region Types
+type Story = StoryObj<typeof meta>;
+// #endregion
 
 const meta = {
   title: 'Example/OrderDetails',
@@ -29,7 +35,6 @@ const meta = {
 } satisfies Meta<typeof OrderDetailsUI>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
 
 export const DefaultOrderDetails: Story = {
   args: {

@@ -1,5 +1,8 @@
+// #region Imports
 import { TIngredient } from '@utils-types';
+// #endregion
 
+// #region Types
 export type OrderInfoUIProps = {
   orderInfo: TOrderInfo;
 };
@@ -18,3 +21,4 @@ type TOrderInfo = {
   number: number;
   ingredients: string[];
 };
+// #endregion

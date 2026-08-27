@@ -1,7 +1,9 @@
+// #region Imports
 import React from 'react';
 import styles from './order-details.module.css';
 import doneImg from '../../../images/done.svg';
 import { OrderDetailsUIProps } from './type';
+// #endregion
 
 export const OrderDetailsUI: React.FC<OrderDetailsUIProps> = ({
   orderNumber

@@ -1,6 +1,11 @@
+// #region Imports
 import type { Meta, StoryObj } from '@storybook/react';
-
 import { AppHeaderUI } from '@ui';
+// #endregion
+
+// #region Types
+type Story = StoryObj<typeof meta>;
+// #endregion
 
 const meta = {
   title: 'Example/Header',
@@ -14,16 +19,21 @@ const meta = {
 } satisfies Meta<typeof AppHeaderUI>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
 
 export const LoggedIn: Story = {
   args: {
-    userName: 'John Doe'
+    userName: 'John Doe',
+    isConstructorActive: true,
+    isFeedActive: false,
+    isProfileActive: false
   }
 };
 
 export const LoggedOut: Story = {
   args: {
-    userName: undefined
+    userName: undefined,
+    isConstructorActive: false,
+    isFeedActive: false,
+    isProfileActive: false
   }
 };

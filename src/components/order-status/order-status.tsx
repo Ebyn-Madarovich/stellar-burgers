@@ -1,17 +1,20 @@
+// #region Imports
 import React, { FC } from 'react';
 import { OrderStatusProps } from './type';
 import { OrderStatusUI } from '@ui';
+// #endregion
 
 const statusText: { [key: string]: string } = {
   pending: 'Готовится',
   done: 'Выполнен',
+  cancelled: 'Отменён',
   created: 'Создан'
 };
 
 export const OrderStatus: FC<OrderStatusProps> = ({ status }) => {
   let textStyle = '';
   switch (status) {
-    case 'pending':
+    case 'cancelled':
       textStyle = '#E52B1A';
       break;
     case 'done':

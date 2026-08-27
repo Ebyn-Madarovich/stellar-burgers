@@ -1,3 +1,4 @@
+// #region Types
 export type FeedInfoUIProps = {
   feed: any;
   readyOrders: number[];
@@ -14,3 +15,4 @@ export type TColumnProps = {
   title: string;
   content: number;
 };
+// #endregion

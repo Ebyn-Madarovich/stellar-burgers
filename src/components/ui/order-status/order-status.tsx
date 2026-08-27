@@ -1,5 +1,7 @@
+// #region Imports
 import React, { FC } from 'react';
 import { OrderStatusUIProps } from './type';
+// #endregion
 
 export const OrderStatusUI: FC<OrderStatusUIProps> = ({ textStyle, text }) => (
   <span
