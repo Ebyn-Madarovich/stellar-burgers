@@ -2,6 +2,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getOrdersApi } from '@api';
 import { TOrder } from '@utils-types';
+import { logoutUser } from './userSlice';
 // #endregion
 
 // #region Types
@@ -39,6 +40,7 @@ const userOrdersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getUserOrders.pending, (state) => {
+        state.orders = [];
         state.isLoading = true;
         state.error = null;
       })
@@ -49,6 +51,11 @@ const userOrdersSlice = createSlice({
       .addCase(getUserOrders.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message ?? 'Ошибка загрузки истории заказов';
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.orders = [];
+        state.isLoading = false;
+        state.error = null;
       });
   }
 });
