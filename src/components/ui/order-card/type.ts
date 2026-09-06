@@ -1,6 +1,9 @@
+// #region Imports
 import { Location } from 'react-router-dom';
 import { TIngredient } from '@utils-types';
+// #endregion
 
+// #region Types
 export type OrderCardUIProps = {
   orderInfo: TOrderInfo;
   maxIngredients: number;
@@ -21,3 +24,4 @@ type TOrderInfo = {
   number: number;
   ingredients: string[];
 };
+// #endregion

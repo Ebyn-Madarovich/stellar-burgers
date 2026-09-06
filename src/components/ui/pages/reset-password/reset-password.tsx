@@ -1,3 +1,4 @@
+// #region Imports
 import { FC } from 'react';
 import {
   Input,
@@ -7,6 +8,7 @@ import {
 import styles from '../common.module.css';
 import { Link } from 'react-router-dom';
 import { ResetPasswordUIProps } from './type';
+// #endregion
 
 export const ResetPasswordUI: FC<ResetPasswordUIProps> = ({
   errorText,

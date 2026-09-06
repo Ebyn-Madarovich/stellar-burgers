@@ -1,6 +1,8 @@
+// #region Imports
 import React, { FC, memo } from 'react';
 import styles from './ingredient-details.module.css';
 import { IngredientDetailsUIProps } from './type';
+// #endregion
 
 export const IngredientDetailsUI: FC<IngredientDetailsUIProps> = memo(
   ({ ingredientData }) => {

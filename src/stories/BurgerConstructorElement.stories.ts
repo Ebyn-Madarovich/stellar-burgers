@@ -1,6 +1,12 @@
+// #region Imports
 import { BurgerConstructorElementUI } from '@ui';
 import type { Meta, StoryObj } from '@storybook/react';
 import { totalmem } from 'os';
+// #endregion
+
+// #region Types
+type Story = StoryObj<typeof meta>;
+// #endregion
 
 const meta = {
   title: 'Example/BurgerConstructorElement',
@@ -14,7 +20,6 @@ const meta = {
 } satisfies Meta<typeof BurgerConstructorElementUI>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
 
 export const DefaultElement: Story = {
   args: {

@@ -1,8 +1,8 @@
+// #region Imports
 import React, { FC, memo } from 'react';
-
 import styles from './feed-info.module.css';
-
 import { FeedInfoUIProps, HalfColumnProps, TColumnProps } from './type';
+// #endregion
 
 export const FeedInfoUI: FC<FeedInfoUIProps> = memo(
   ({ feed, readyOrders, pendingOrders }) => {

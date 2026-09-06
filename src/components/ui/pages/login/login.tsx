@@ -1,3 +1,4 @@
+// #region Imports
 import { FC, useState } from 'react';
 import {
   Input,
@@ -7,6 +8,7 @@ import {
 import styles from '../common.module.css';
 import { Link } from 'react-router-dom';
 import { LoginUIProps } from './type';
+// #endregion
 
 export const LoginUI: FC<LoginUIProps> = ({
   email,

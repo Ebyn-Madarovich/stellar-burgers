@@ -1,11 +1,9 @@
+// #region Imports
 import { setCookie, getCookie } from './cookie';
 import { TIngredient, TOrder, TOrdersData, TUser } from './types';
+// #endregion
 
-const URL = process.env.BURGER_API_URL;
-
-const checkResponse = <T>(res: Response): Promise<T> =>
-  res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
-
+// #region Types
 type TServerResponse<T> = {
   success: boolean;
 } & T;
@@ -14,6 +12,72 @@ type TRefreshResponse = TServerResponse<{
   refreshToken: string;
   accessToken: string;
 }>;
+
+type TIngredientsResponse = TServerResponse<{
+  data: TIngredient[];
+}>;
+
+type TFeedsResponse = TServerResponse<{
+  orders: TOrder[];
+  total: number;
+  totalToday: number;
+}>;
+
+type TOrdersResponse = TServerResponse<{
+  data: TOrder[];
+}>;
+
+type TOwner = {
+  name: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type TNewOrder = {
+  _id: string;
+  status: string;
+  name: string;
+  owner: TOwner;
+  createdAt: string;
+  updatedAt: string;
+  number: number;
+  price: number;
+};
+
+type TNewOrderResponse = TServerResponse<{
+  order: TNewOrder;
+  name: string;
+}>;
+
+type TOrderResponse = TServerResponse<{
+  orders: TOrder[];
+}>;
+
+export type TRegisterData = {
+  email: string;
+  name: string;
+  password: string;
+};
+
+type TAuthResponse = TServerResponse<{
+  refreshToken: string;
+  accessToken: string;
+  user: TUser;
+}>;
+
+export type TLoginData = {
+  email: string;
+  password: string;
+};
+
+type TUserResponse = TServerResponse<{ user: TUser }>;
+// #endregion
+
+const URL = process.env.BURGER_API_URL;
+
+const checkResponse = <T>(res: Response): Promise<T> =>
+  res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 
 export const refreshToken = (): Promise<TRefreshResponse> =>
   fetch(`${URL}/auth/token`, {
@@ -57,20 +121,6 @@ export const fetchWithRefresh = async <T>(
   }
 };
 
-type TIngredientsResponse = TServerResponse<{
-  data: TIngredient[];
-}>;
-
-type TFeedsResponse = TServerResponse<{
-  orders: TOrder[];
-  total: number;
-  totalToday: number;
-}>;
-
-type TOrdersResponse = TServerResponse<{
-  data: TOrder[];
-}>;
-
 export const getIngredientsApi = () =>
   fetch(`${URL}/ingredients`)
     .then((res) => checkResponse<TIngredientsResponse>(res))
@@ -99,29 +149,6 @@ export const getOrdersApi = () =>
     return Promise.reject(data);
   });
 
-type TOwner = {
-  name: string;
-  email: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-type TNewOrder = {
-  _id: string;
-  status: string;
-  name: string;
-  owner: TOwner;
-  createdAt: string;
-  updatedAt: string;
-  number: number;
-  price: number;
-};
-
-type TNewOrderResponse = TServerResponse<{
-  order: TNewOrder;
-  name: string;
-}>;
-
 export const orderBurgerApi = (data: string[]) =>
   fetchWithRefresh<TNewOrderResponse>(`${URL}/orders`, {
     method: 'POST',
@@ -137,10 +164,6 @@ export const orderBurgerApi = (data: string[]) =>
     return Promise.reject(data);
   });
 
-type TOrderResponse = TServerResponse<{
-  orders: TOrder[];
-}>;
-
 export const getOrderByNumberApi = (number: number) =>
   fetch(`${URL}/orders/${number}`, {
     method: 'GET',
@@ -148,18 +171,6 @@ export const getOrderByNumberApi = (number: number) =>
       'Content-Type': 'application/json'
     }
   }).then((res) => checkResponse<TOrderResponse>(res));
-
-export type TRegisterData = {
-  email: string;
-  name: string;
-  password: string;
-};
-
-type TAuthResponse = TServerResponse<{
-  refreshToken: string;
-  accessToken: string;
-  user: TUser;
-}>;
 
 export const registerUserApi = (data: TRegisterData) =>
   fetch(`${URL}/auth/register`, {
@@ -174,11 +185,6 @@ export const registerUserApi = (data: TRegisterData) =>
       if (data?.success) return data;
       return Promise.reject(data);
     });
-
-export type TLoginData = {
-  email: string;
-  password: string;
-};
 
 export const loginUserApi = (data: TLoginData) =>
   fetch(`${URL}/auth/login`, {
@@ -221,8 +227,6 @@ export const resetPasswordApi = (data: { password: string; token: string }) =>
       if (data?.success) return data;
       return Promise.reject(data);
     });
-
-type TUserResponse = TServerResponse<{ user: TUser }>;
 
 export const getUserApi = () =>
   fetchWithRefresh<TUserResponse>(`${URL}/auth/user`, {

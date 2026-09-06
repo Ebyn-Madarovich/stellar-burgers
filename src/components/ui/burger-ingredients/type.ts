@@ -1,6 +1,9 @@
+// #region Imports
 import { RefObject } from 'react';
 import { TIngredient, TTabMode } from '@utils-types';
+// #endregion
 
+// #region Types
 export type BurgerIngredientsUIProps = {
   currentTab: TTabMode;
   buns: TIngredient[];
@@ -14,3 +17,4 @@ export type BurgerIngredientsUIProps = {
   saucesRef: (node?: Element | null | undefined) => void;
   onTabClick: (val: string) => void;
 };
+// #endregion

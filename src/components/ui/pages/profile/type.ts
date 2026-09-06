@@ -1,5 +1,8 @@
+// #region Imports
 import { ChangeEvent, SyntheticEvent } from 'react';
+// #endregion
 
+// #region Types
 export type ProfileUIProps = {
   formValue: {
     name: string;
@@ -12,3 +15,4 @@ export type ProfileUIProps = {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   updateUserError?: string;
 };
+// #endregion

@@ -1,3 +1,4 @@
+// #region Imports
 import React, { FC } from 'react';
 import {
   Button,
@@ -9,6 +10,7 @@ import { BurgerConstructorUIProps } from './type';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorElement, Modal } from '@components';
 import { Preloader, OrderDetailsUI } from '@ui';
+// #endregion
 
 export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
   constructorItems,
