@@ -1,7 +1,7 @@
 // #region Imports
 import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
 import { TConstructorIngredient, TIngredient } from '@utils-types';
-import { createOrder } from './orderSlice';
+import { createOrder } from '../orderSlice';
 // #endregion
 
 // #region Types
