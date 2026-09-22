@@ -71,7 +71,7 @@ export const logoutUser = createAsyncThunk('user/logoutUser', async () => {
   localStorage.removeItem('refreshToken');
 });
 
-const initialState: TUserState = {
+const initialUserState: TUserState = {
   user: null,
   isAuthChecked: false,
   isLoading: false,
@@ -80,7 +80,7 @@ const initialState: TUserState = {
 
 const userSlice = createSlice({
   name: 'user',
-  initialState,
+  initialState: initialUserState,
   reducers: {},
   selectors: {
     selectUser: (state) => state.user,

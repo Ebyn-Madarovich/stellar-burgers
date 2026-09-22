@@ -20,7 +20,7 @@ export const getFeed = createAsyncThunk('feed/getFeed', () => {
   return result;
 });
 
-const initialState: TFeedState = {
+const initialFeedState: TFeedState = {
   orders: [],
   total: 0,
   totalToday: 0,
@@ -30,7 +30,7 @@ const initialState: TFeedState = {
 
 const feedSlice = createSlice({
   name: 'feed',
-  initialState,
+  initialState: initialFeedState,
   reducers: {},
   selectors: {
     selectFeedOrders: (state) => state.orders,

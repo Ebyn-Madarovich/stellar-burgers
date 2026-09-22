@@ -1,10 +1,11 @@
-import ingredientsReducer, {
-  getIngredients,
-  initialState
-} from './ingredientsSlice';
 import { expect, test, describe } from '@jest/globals';
 
-const mockLoadedIngredients = [
+import ingredientsReducer, {
+  getIngredients,
+  initialIngredientsState
+} from './ingredientsSlice';
+
+const testIngredients = [
   {
     _id: 'bun-1',
     name: 'Тестовая булка',
@@ -22,79 +23,72 @@ const mockLoadedIngredients = [
 
 describe('Редьюсер ingredients', () => {
   test('Включает загрузку и сбрасывает старую ошибку при pending', () => {
-    const initialStatePending = {
-      ...initialState,
+    const previousState = {
+      ...initialIngredientsState,
       error: 'Какая-то старая ошибка'
     };
 
-    const expectedStatePending = {
-      ...initialState,
+    const expectedState = {
+      ...initialIngredientsState,
       isLoading: true
     };
 
-    const newPendingState = ingredientsReducer(
-      initialStatePending,
-      getIngredients.pending('test-request')
-    );
+    const action = getIngredients.pending('test-request');
+    const actualState = ingredientsReducer(previousState, action);
 
-    expect(newPendingState).toEqual(expectedStatePending);
+    expect(actualState).toEqual(expectedState);
   });
 
   test('Сохраняет ингредиенты и завершает загрузку при fulfilled', () => {
-    const initialStateFulfilled = {
-      ...initialState,
+    const previousState = {
+      ...initialIngredientsState,
       isLoading: true
     };
 
-    const expectedStateFulfilled = {
-      ...initialState,
-      ingredients: mockLoadedIngredients
+    const expectedState = {
+      ...initialIngredientsState,
+      ingredients: testIngredients
     };
 
-    const newFulfilledState = ingredientsReducer(
-      initialStateFulfilled,
-      getIngredients.fulfilled(mockLoadedIngredients, 'test-request')
-    );
+    const action = getIngredients.fulfilled(testIngredients, 'test-request');
+    const actualState = ingredientsReducer(previousState, action);
 
-    expect(newFulfilledState).toEqual(expectedStateFulfilled);
+    expect(actualState).toEqual(expectedState);
   });
 
   test('Сохраняет ингредиенты, завершает загрузку и записывает ошибку при rejected', () => {
-    const initialStateRejected = {
-      ...initialState,
-      ingredients: mockLoadedIngredients,
+    const previousState = {
+      ...initialIngredientsState,
+      ingredients: testIngredients,
       isLoading: true
     };
 
-    const expectedStateRejected = {
-      ...initialState,
-      ingredients: mockLoadedIngredients,
+    const expectedState = {
+      ...initialIngredientsState,
+      ingredients: testIngredients,
       error: 'Какая-то ошибка'
     };
 
-    const mockError = new Error('Какая-то ошибка');
+    const testError = new Error('Какая-то ошибка');
 
-    const newRejectedState = ingredientsReducer(
-      initialStateRejected,
-      getIngredients.rejected(mockError, 'test-request')
-    );
+    const action = getIngredients.rejected(testError, 'test-request');
+    const actualState = ingredientsReducer(previousState, action);
 
-    expect(newRejectedState).toEqual(expectedStateRejected);
+    expect(actualState).toEqual(expectedState);
   });
 
   test('Возвращает начальное состояние для неизвестного экшена', () => {
-    const initialStateUnknown = undefined;
+    const previousState = undefined;
 
-    // Если переданный в редьюсер стейт undefined, то он берёт initialState из слайса
+    // Если переданный в редьюсер стейт undefined, то он берёт initialIngredientsState из слайса
     // Неизвестный экшен оставляет это состояние без изменений
-    const expectedStateUnknown = {
-      ...initialState
+    const expectedState = {
+      ...initialIngredientsState
     };
 
-    const newUnknownState = ingredientsReducer(initialStateUnknown, {
-      type: 'UNKNOWN'
-    });
+    const action = { type: 'UNKNOWN' };
+    const actualState = ingredientsReducer(previousState, action);
 
-    expect(newUnknownState).toEqual(expectedStateUnknown);
+    expect(actualState).toEqual(expectedState);
   });
 });

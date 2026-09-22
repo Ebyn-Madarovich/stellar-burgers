@@ -20,7 +20,7 @@ export const getIngredients = createAsyncThunk(
   }
 );
 
-export const initialState: TIngredientsState = {
+export const initialIngredientsState: TIngredientsState = {
   ingredients: [],
   isLoading: false,
   error: null
@@ -28,7 +28,7 @@ export const initialState: TIngredientsState = {
 
 const ingredientsSlice = createSlice({
   name: 'ingredients',
-  initialState,
+  initialState: initialIngredientsState,
   reducers: {},
 
   selectors: {
