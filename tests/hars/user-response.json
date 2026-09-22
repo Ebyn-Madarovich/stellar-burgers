@@ -1,1 +1,7 @@
-{"success":true,"user":{"email":"general.minimi@gmail.com","name":"yandexkontorapidorasov"}}
+{
+    "success":  true,
+    "user":  {
+                 "email":  "test@example.com",
+                 "name":  "Test User"
+             }
+}

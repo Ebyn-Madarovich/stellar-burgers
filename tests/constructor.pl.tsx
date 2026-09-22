@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Конструктор бургера', () => {
   test.beforeEach(async ({ page }) => {
+    //Созданы моковые данные для ингредиентов
     await page.routeFromHAR('tests/hars/ingredients.har', {
       url: '**/api/ingredients',
       update: false
@@ -151,7 +152,14 @@ test.describe('Конструктор бургера', () => {
     });
     // #endregion
 
+    // Начинаем следить за ответом сервера на запрос данных пользователя.
+    const userResponsePromise = page.waitForResponse('**/api/auth/user');
+
+    // При открытии страницы приложение отправляет запрос данных пользователя
     await page.goto('/');
+
+    // Дожидаемся ответа на этот запрос
+    await userResponsePromise;
 
     // #region Собирается бургер
     const bunCard = page.locator('li').filter({
@@ -170,18 +178,23 @@ test.describe('Конструктор бургера', () => {
     // #endregion
 
     // #region Вызывается клик по кнопке «Оформить заказ»
+
+    // Начинаем следить за ответом сервера на POST-запрос создания заказа
     const orderResponsePromise = page.waitForResponse(
       (response) =>
         response.url().includes('/api/orders') &&
         response.request().method() === 'POST'
     );
 
+    // Клик вызывает запрос создания заказа
     await page
       .getByRole('button', { name: 'Оформить заказ', exact: true })
       .click();
 
+    // Получаем ответ сервера на создание заказа
     const orderResponse = await orderResponsePromise;
 
+    // Проверяем, что сервер вернул успешный ответ
     expect(orderResponse.ok()).toBeTruthy();
     // #endregion
 
