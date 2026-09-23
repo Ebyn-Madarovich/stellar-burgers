@@ -1,8 +1,8 @@
-export { default as ingredientsReducer } from './ingredientsSlice';
-export * from './ingredientsSlice';
+export { default as ingredientsReducer } from './ingredients/ingredientsSlice';
+export * from './ingredients/ingredientsSlice';
 
-export { default as burgerConstructorReducer } from './burgerConstructorSlice';
-export * from './burgerConstructorSlice';
+export { default as burgerConstructorReducer } from './burgerConstructor/burgerConstructorSlice';
+export * from './burgerConstructor/burgerConstructorSlice';
 
 export { default as orderReducer } from './orderSlice';
 export * from './orderSlice';

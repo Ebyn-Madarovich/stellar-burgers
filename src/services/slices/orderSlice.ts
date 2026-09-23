@@ -20,7 +20,7 @@ export const createOrder = createAsyncThunk(
   }
 );
 
-const initialState: TOrderState = {
+const initialOrderState: TOrderState = {
   orderModalData: null,
   isLoading: false,
   error: null
@@ -28,7 +28,7 @@ const initialState: TOrderState = {
 
 const orderSlice = createSlice({
   name: 'order',
-  initialState,
+  initialState: initialOrderState,
   reducers: {
     clearOrderModalData: (state) => {
       state.orderModalData = null;
