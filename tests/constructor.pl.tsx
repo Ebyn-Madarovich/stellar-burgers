@@ -2,9 +2,15 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Конструктор бургера', () => {
   test.beforeEach(async ({ page }) => {
-    //Созданы моковые данные для ингредиентов
+    // Созданы моковые данные для ингредиентов
     await page.routeFromHAR('tests/hars/ingredients.har', {
       url: '**/api/ingredients',
+      update: false
+    });
+
+    // Созданы моковые данные ответа на запрос данных пользователя
+    await page.routeFromHAR('tests/hars/authentication.har', {
+      url: '**/api/auth/user',
       update: false
     });
   });
@@ -13,16 +19,34 @@ test.describe('Конструктор бургера', () => {
     test('Добавляет булку в конструктор', async ({ page }) => {
       await page.goto('/');
 
+      const constructor = page.locator('section').filter({
+        has: page.getByRole('button', {
+          name: 'Оформить заказ',
+          exact: true
+        })
+      });
+
+      // Проверяем отсутствие булки в конструкторе до её добавления
+      await expect(
+        constructor.getByText('Краторная булка N-200i (верх)', {
+          exact: true
+        })
+      ).toHaveCount(0);
+      await expect(
+        constructor.getByText('Краторная булка N-200i (низ)', {
+          exact: true
+        })
+      ).toHaveCount(0);
       const bunCard = page.locator('li').filter({
         hasText: 'Краторная булка N-200i'
       });
+
+      // Добавляем булку в конструктор по клику
       await bunCard
         .getByRole('button', { name: 'Добавить', exact: true })
         .click();
 
-      const constructor = page.locator('section').filter({
-        has: page.getByRole('button', { name: 'Оформить заказ', exact: true })
-      });
+      // Проверяем наличие булки в конструкторе после клика
       await expect(
         constructor.getByText('Краторная булка N-200i (верх)', { exact: true })
       ).toBeVisible();
@@ -35,16 +59,30 @@ test.describe('Конструктор бургера', () => {
     test('Добавляет начинку в конструктор', async ({ page }) => {
       await page.goto('/');
 
+      const constructor = page.locator('section').filter({
+        has: page.getByRole('button', {
+          name: 'Оформить заказ',
+          exact: true
+        })
+      });
+
+      // Проверяем отсутствие начинки в конструкторе до её добавления
+      await expect(
+        constructor.getByText('Биокотлета из марсианской Магнолии', {
+          exact: true
+        })
+      ).toHaveCount(0);
+
       const fillingCard = page.locator('li').filter({
         hasText: 'Биокотлета из марсианской Магнолии'
       });
+
+      // Добавляем начинку в конструктор по клику
       await fillingCard
         .getByRole('button', { name: 'Добавить', exact: true })
         .click();
 
-      const constructor = page.locator('section').filter({
-        has: page.getByRole('button', { name: 'Оформить заказ', exact: true })
-      });
+      // Проверяем наличие начинки в конструкторе после клика
       await expect(
         constructor.getByText('Биокотлета из марсианской Магнолии', {
           exact: true
@@ -59,65 +97,78 @@ test.describe('Конструктор бургера', () => {
     }) => {
       await page.goto('/');
 
+      const modal = page.locator('#modals');
+
+      // Проверяем, что до клика модальное окно закрыто
+      await expect(modal).toBeEmpty();
+
       const ingredientCard = page.locator('li').filter({
         hasText: 'Филе Люминесцентного тетраодонтимформа'
       });
       const ingredientLink = ingredientCard.getByRole('link');
 
+      // Открываем модальное окно по клику на карточку ингредиента
       await ingredientLink.click();
 
       await expect(
-        page.getByRole('heading', {
+        modal.getByRole('heading', {
           name: 'Детали ингредиента',
           exact: true
         })
       ).toBeVisible();
 
       await expect(
-        page.getByRole('heading', {
+        modal.getByRole('heading', {
           name: 'Филе Люминесцентного тетраодонтимформа',
           exact: true
         })
       ).toBeVisible();
 
-      const modal = page.locator('#modals');
-
+      // Закрываем модальное окно по клику на крестик
       await modal.getByRole('button').click();
 
+      // Проверяем, что модальное окно закрылось после клика по крестику
       await expect(modal).toBeEmpty();
     });
 
     test('Закрывает окно по клику на оверлей', async ({ page }) => {
       await page.goto('/');
 
+      const modalRoot = page.locator('#modals');
+
+      // Проверяем, что до клика модальное окно закрыто
+      await expect(modalRoot).toBeEmpty();
+
       const ingredientCard = page.locator('li').filter({
         hasText: 'Филе Люминесцентного тетраодонтимформа'
       });
       const ingredientLink = ingredientCard.getByRole('link');
 
+      // Открываем модальное окно по клику на карточку ингредиента
       await ingredientLink.click();
 
       await expect(
-        page.getByRole('heading', {
+        modalRoot.getByRole('heading', {
           name: 'Детали ингредиента',
           exact: true
         })
       ).toBeVisible();
 
       await expect(
-        page.getByRole('heading', {
+        modalRoot.getByRole('heading', {
           name: 'Филе Люминесцентного тетраодонтимформа',
           exact: true
         })
       ).toBeVisible();
 
-      const modalRoot = page.locator('#modals');
       const overlay = modalRoot.locator(':scope > div').last();
 
+      // Закрываем модальное окно по клику на оверлей
       await overlay.click({
         position: { x: 5, y: 5 }
       });
 
+      // Проверяем, что модальное окно закрылось после клика на оверлей
       await expect(modalRoot).toBeEmpty();
     });
   });
@@ -126,13 +177,7 @@ test.describe('Конструктор бургера', () => {
     page,
     context
   }) => {
-    //Созданы моковые данные ответа на запрос данных пользователя
-    await page.routeFromHAR('tests/hars/authentication.har', {
-      url: '**/api/auth/user',
-      update: false
-    });
-
-    //Созданы моковые данные ответа на запрос создания заказа
+    // Созданы моковые данные ответа на запрос создания заказа
     await page.routeFromHAR('tests/hars/orders.har', {
       url: '**/api/orders',
       update: false
@@ -161,7 +206,37 @@ test.describe('Конструктор бургера', () => {
     // Дожидаемся ответа на этот запрос
     await userResponsePromise;
 
+    const bunId = '643d69a5c3f7b9001cfa093c';
+    const fillingId = '643d69a5c3f7b9001cfa0941';
+
+    const constructor = page.locator('section').filter({
+      has: page.getByRole('button', {
+        name: 'Оформить заказ',
+        exact: true
+      })
+    });
+
     // #region Собирается бургер
+
+    // Проверяем отсутствие ингредиентов в конструкторе до сборки бургера
+    await expect(
+      constructor.getByText('Краторная булка N-200i (верх)', {
+        exact: true
+      })
+    ).toHaveCount(0);
+
+    await expect(
+      constructor.getByText('Краторная булка N-200i (низ)', {
+        exact: true
+      })
+    ).toHaveCount(0);
+
+    await expect(
+      constructor.getByText('Биокотлета из марсианской Магнолии', {
+        exact: true
+      })
+    ).toHaveCount(0);
+
     const bunCard = page.locator('li').filter({
       hasText: 'Краторная булка N-200i'
     });
@@ -176,6 +251,11 @@ test.describe('Конструктор бургера', () => {
       .getByRole('button', { name: 'Добавить', exact: true })
       .click();
     // #endregion
+
+    const orderModal = page.locator('#modals');
+
+    // Проверяем, что до оформления заказа модальное окно закрыто
+    await expect(orderModal).toBeEmpty();
 
     // #region Вызывается клик по кнопке «Оформить заказ»
 
@@ -194,12 +274,13 @@ test.describe('Конструктор бургера', () => {
     // Получаем ответ сервера на создание заказа
     const orderResponse = await orderResponsePromise;
 
-    // Проверяем, что сервер вернул успешный ответ
-    expect(orderResponse.ok()).toBeTruthy();
+    // Проверяем, что в запросе переданы ID собранных ингредиентов
+    expect(orderResponse.request().postDataJSON()).toEqual({
+      ingredients: [bunId, fillingId, bunId]
+    });
     // #endregion
 
     // #region Проверяется, что модальное окно открылось и номер заказа верный
-    const orderModal = page.locator('#modals');
 
     await expect(
       orderModal.getByText('идентификатор заказа', { exact: true })
@@ -214,13 +295,6 @@ test.describe('Конструктор бургера', () => {
     // #endregion
 
     // #region Проверяется, что конструктор пуст
-    const constructor = page.locator('section').filter({
-      has: page.getByRole('button', {
-        name: 'Оформить заказ',
-        exact: true
-      })
-    });
-
     await expect(
       constructor.getByText('Выберите булки', { exact: true })
     ).toHaveCount(2);
