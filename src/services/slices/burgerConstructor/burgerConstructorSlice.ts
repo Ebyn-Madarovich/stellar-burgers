@@ -1,11 +1,11 @@
 // #region Imports
 import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
 import { TConstructorIngredient, TIngredient } from '@utils-types';
-import { createOrder } from './orderSlice';
+import { createOrder } from '../orderSlice';
 // #endregion
 
 // #region Types
-type TBurgerConstructorState = {
+export type TBurgerConstructorState = {
   bun: TIngredient | null;
   ingredients: TConstructorIngredient[];
 };
@@ -17,16 +17,16 @@ type TMoveIngredientPayload = {
 // #endregion
 
 // Начальное состояние пустого конструктора
-const initialState: TBurgerConstructorState = {
+export const initialConstructorState: TBurgerConstructorState = {
   bun: null,
   ingredients: []
 };
 
 const burgerConstructorSlice = createSlice({
   name: 'burgerConstructor',
-  initialState,
+  initialState: initialConstructorState,
   reducers: {
-    // Булка заменяет предыдущую, а начинкам создаётся уникальный id
+    // Булка заменяет предыдущую, и начинкам(включая булку) создаётся уникальный id
     addIngredient: {
       reducer: (state, action: PayloadAction<TConstructorIngredient>) => {
         if (action.payload.type === 'bun') {
@@ -63,7 +63,7 @@ const burgerConstructorSlice = createSlice({
     },
 
     // Очищаем конструктор после успешного оформления заказа
-    clearConstructor: () => initialState
+    clearConstructor: () => initialConstructorState
   },
   selectors: {
     selectConstructor: (state) => state,

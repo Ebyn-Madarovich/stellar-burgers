@@ -21,7 +21,7 @@ export const getOrderByNumber = createAsyncThunk(
   }
 );
 
-const initialState: TOrderDetailsState = {
+const initialOrderDetailsState: TOrderDetailsState = {
   order: null,
   isLoading: false,
   error: null
@@ -29,7 +29,7 @@ const initialState: TOrderDetailsState = {
 
 const orderDetailsSlice = createSlice({
   name: 'orderDetails',
-  initialState,
+  initialState: initialOrderDetailsState,
   reducers: {},
   selectors: {
     selectOrderDetails: (state) => state.order,
